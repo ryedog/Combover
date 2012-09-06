@@ -1,0 +1,91 @@
+/*vars*/
+/*Fonts*/
+h1,
+h2,
+h3 {
+  font-family: 'Lato', sans-serif;
+}
+#header {
+  background-color: #EBE781;
+}
+header {
+  background-image: url('/img/combover-header.jpg');
+  width: 1024px;
+  height: 206px;
+  margin-bottom: 25px;
+  padding-top: 10px;
+}
+header .logo {
+  background-image: url('/img/combover-logo.png');
+  width: 326px;
+  height: 77px;
+  margin: 0 auto;
+}
+header .combie {
+  background-image: url('/img/combie.png');
+  width: 176px;
+  height: 93px;
+  margin: 0 auto;
+  position: relative;
+  top: 15px;
+}
+header strong {
+  text-align: center;
+  display: block;
+  font-family: 'Playball', cursive;
+  color: #3F1818;
+  font-size: 1.4em;
+  position: relative;
+  top: 7px;
+}
+.container {
+  width: 1024px;
+  background-color: white;
+}
+.divider {
+  border-bottom: solid 1px #E0E0E0;
+  padding-bottom: 30px;
+}
+.divider h2 {
+  font-size: 1.8em;
+}
+.sample-code {
+  margin-top: 20px;
+}
+.sample-code article {
+  width: 32%;
+}
+.sample-code textarea,
+.sample-code .result {
+  text-align: left;
+  width: 95%;
+  min-height: 200px;
+}
+.sample-code .template,
+.sample-code .json {
+  float: left;
+  margin-left: 10px;
+}
+.sample-code .code {
+  float: right;
+  margin-right: 10px;
+}
+.sample-code .code #result {
+  border: 10px solid #DFDFDF;
+  background-color: #F1F1F1;
+  padding: 10px;
+  min-height: 170px;
+}
+.sample-code h2 {
+  font-size: 1em;
+  margin: 0;
+}
+.content-right,
+.content-left {
+  float: left;
+}
+.content-right article {
+  margin-top: 60px;
+  margin-left: 15px;
+  width: 100%;
+}

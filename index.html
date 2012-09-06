@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/combover.css">
+        <link href='http://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
+
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div id="header">
+            <header class="container">
+                <div class="logo"></div>
+                <strong>Markup-less Javascript Templeting</strong>
+                <div class="combie"></div>
+            </header>
+        </div>
+
+        <div id="main" class="container">
+
+            <!-- Getting Stated -->
+            <div class="row divider">
+                
+                <article>
+                    <h2>Getting Started</h2>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce massa nisl, venenatis elementum iaculis sed, fermentum sit amet massa. Nam felis quam, porttitor in vehicula vitae, dignissim at tortor. Praesent viverra lacinia nisl eget ultricies. Aliquam eros dui, iaculis a laoreet eu, sollicitudin id dui. In rhoncus pharetra ornare. Aliquam malesuada tincidunt lectus, consequat tristique magna convallis sit amet.</p>
+
+                    <a href="#" class="btn btn-info btn-large">Download Beta-1.0.6</a>
+                </article>
+
+                <div class="sample-code">
+                    <!-- Place all code GIST's here -->
+                    <article class="template">
+                        <h2>HTML Template</h2>
+                        <textarea id='textarea-html-template'><div comb="hairspray"></div></textarea>
+                    </article>
+
+                    <article class="json">
+                        <h2>JSON object</h2>
+                        <textarea id="textarea-json-object">{"hairspray": "extra hold"}</textarea>
+                    </article>
+
+                    <article class="code">
+                        <h2>Result</h2>
+                        <div id="result">
+                            <button id="button-compile"class="btn">Compile Result</button>
+                        </div>
+                    </article>
+                </div>
+
+            </div>   
+            <!-- EO getting started --> 
+
+            <footer>
+                <!-- Footer -->
+            </footer>
+
+        </div>
+        <!-- EO site markup -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/application.js"></script>
+        <script src="js/combover.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <!-- combover playground JS -->
+        <script type="text/javascript">
+            $(document).ready(function () {
+                Combover_playgound.init();
+            });
+        </script>
+    </body>
+</html>
