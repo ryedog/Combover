@@ -16,13 +16,14 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/combover.css">
+        <link rel="stylesheet" href="css/prettify.css">
         <link href='http://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
 
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
-    <body>
+    <body onload="prettyPrint()">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
@@ -31,34 +32,40 @@
         <div id="header">
             <header class="container">
                 <div class="logo"></div>
-                <strong>Markup-less Javascript Templeting</strong>
+                <strong>A markup-less Javascript Templating Engine</strong>
                 <div class="combie"></div>
             </header>
         </div>
 
         <div id="main" class="container">
 
-            <!-- Getting Stated -->
+            <!-- Intro / Getting Started -->
             <div class="row divider">
                 
                 <article>
-                    <h2>Getting Started</h2>
+                    <h2>Combover.JS</h2>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce massa nisl, venenatis elementum iaculis sed, fermentum sit amet massa. Nam felis quam, porttitor in vehicula vitae, dignissim at tortor. Praesent viverra lacinia nisl eget ultricies. Aliquam eros dui, iaculis a laoreet eu, sollicitudin id dui. In rhoncus pharetra ornare. Aliquam malesuada tincidunt lectus, consequat tristique magna convallis sit amet.</p>
+                    <p>Markup, it's like hair you don't need&hellip; just Combover</p>
+                    <p>Combover removes the need for extra markup by binding objects directly to HTML tags. It’s simple, lightweight and intuitive&hellip; everything a Javascript templating engine should be.</p>
+                    <p>We find that our HTML is always in the structure of the data we want to template. So why have additional markup surrounding our HTML? They break HTML renders, WYSIYWGS and look ugly.</p>
 
                     <a href="#" class="btn btn-info btn-large">Download Beta-1.0.6</a>
                 </article>
 
-                <div class="sample-code">
-                    <!-- Place all code GIST's here -->
-                    <article class="template">
-                        <h2>HTML Template</h2>
-                        <textarea id='textarea-html-template'><div comb="hairspray"></div></textarea>
-                    </article>
+            </div>    
 
+            <!-- Try it yourself -->
+            <div class="row divider">
+                <div class="sample-code">
                     <article class="json">
                         <h2>JSON object</h2>
-                        <textarea id="textarea-json-object">{"hairspray": "extra hold"}</textarea>
+                        <textarea id="textarea-json-object">{"hairspray": "extra hold"}
+                        </textarea>
+                    </article>
+
+                    <article class="template">
+                        <h2>HTML Template</h2>
+                        <textarea id='textarea-html-template'><div><div comb="hairspray"></div></div></textarea>
                     </article>
 
                     <article class="code">
@@ -67,10 +74,327 @@
                             <button id="button-compile"class="btn">Compile Result</button>
                         </div>
                     </article>
+
+                    <div id='button-bar'>
+                        <a href='#' id='try-again' class='hidden'>Try Again</a>
+                    </div>
                 </div>
+            </div>
+            <!-- EO Try it yourself -->
+
+            <!-- Getting Started -->
+            <div class="row divider">
+
+                <article>
+                    <h2>Getting Started</h2>
+                    <p>Combover is a little different then most templating engines. Instead of additional markup tags you simply tell Combover which objects bind to your HTML tags using the &ldquo;comb&rdquo; attribute. 
+                </article>
+
+                <!-- section one sample code -->
+                <div class="sample-code">
+                    <article class="json">
+                    <h2>JSON object</h2>
+<code class='prettyprint'>
+{<br />
+&nbsp;'name':'Hair to Stay',<br />
+&nbsp;'phone':'212-219-3416'<br />
+}   
+</code>
+                    </article>
+
+                    <article class="template">
+                        <h2>HTML Template</h2>
+<code class='prettyprint lang-html'>
+&lt;ul&gt;<br />
+&nbsp;&lt;li&gt;Name:&lt;span comb='name'&gt;&lt;/span>&lt;/li&gt;
+&nbsp;&lt;li&gt;Phone:&lt;span comb='phone'&gt;&lt;span>&lt;/li&gt;    
+&lt;/ul&gt;    
+</code>                        
+                    </article>
+
+                    <article class="code">
+                        <h2>Result</h2>
+<code class='prettyprint lang-html'>
+&lt;ul&gt;<br />
+&nbsp;&lt;li&gt;Name:&lt;span&gt;Hair to Stay&lt;/span>&lt;/li&gt;
+&nbsp;&lt;li&gt;Phone:&lt;span&gt;212-219-3416&lt;span>&lt;/li&gt;<br />    
+&lt;/ul&gt;      
+</code>                         
+                    </article>    
+                </div>
+                <!-- eo section one sample -->
+
+                <strong>Templates</strong>
+                <p>Combover templates work just like other engines. You can send in HTML source or supply an ID</p>
+
+<code class='prettyprint lang-js'>                    
+&nbsp;var gutsy = Combover.compile('#rusk-gutsy');
+</code>
+
+                    <p>You can also use the script tag to surround your templates or pull them in externally</p>
+<code class='prettyprint lang-html'>
+&lt;script id='rusk-gutsy' type='text/x-combover-template'&gt;&lt;/script&gt;
+</code>     
+
+                    <strong>Using a Template</strong>
+                    <p>Once you have a compiled template just send it the data. The compile method returns a rending function that you simply send in data and out the other side you get the HTML.</p>  
+
+<code class='prettyprint lang-js'>
+var gutsy = Combover.compile('#rusk-gutsy');<br />
+var data = {name: 'Hair to Stay', phone: '212-219-3416'};<br />
+var html = gutsy(data);
+</code>                               
 
             </div>   
-            <!-- EO getting started --> 
+            <!-- EO getting started--> 
+
+            <!-- Templating -->
+            <div class="row divider">
+                <h2>Templating</h2> 
+                <p>A template is simply HTML. By adding the "comb" data attributes to tags you are telling Combover you want to bind your content to it.</p>
+                <p>Templates can be</p>
+                <ul>
+                    <li>Inline - template is in the body of your HTML</li>
+                    <li>Text</li>
+                    <li>Text via &lt;script&gt; tag</li>
+                </ul>
+                <p>The attributes can be either "comb" or the HTML5 data attribute "data-comb"</p>
+                <div class='alert alert-info'>
+                    <strong>Why "comb"and "data-comb"? "comb" is simple and shorter and we like simple & short.</strong> 
+                </div>
+                <p>use the HTML5 data attribute "data-comb" when using Inline templates so HTML5 validators will not freak out. It’s also completely safe to use the shorthand attribute "comb" when using script or text templates</p>
+                <div class='alert alert-info'>
+                    <strong>The "comb" and "data-comb" attributes will be removed in the rendered output</strong>
+                </div>
+                <p>The Combover attribute value is comprised of 3 components</p>
+                <ul>
+                    <li>Renders</li>
+                    <li>Helpers</li>
+                    <li>Object property name</li>
+                </ul>
+                <p>We'll get to Renders &amp; Helpers in a minute. The most important part is the object property name. You are just mapping your object to the HTML tags. The tag then becomes the object value and any child tags are now in that values context. When the value is an object (nested objects) the context is this object.</p>
+
+                <!-- section two sample code -->
+                <div class="sample-code">
+                    <article class="json">
+                    <h2>JSON object</h2>
+<code class='prettyprint'>
+{</br>
+gusty: {</br>
+&nbsp;'brand':'RUSK',</br>
+&nbsp;'name':'Being Gutsy',</br>
+&nbsp;'type':'Thickening Cream',</br>
+&nbsp;'price':9.95</br>
+},</br>
+wild: {</br>
+&nbsp;'brand':'RUSK',</br>
+&nbsp;'name':'Being Wild',</br>
+&nbsp;'type':'Paste',</br>
+&nbsp;'price':8.95</br>
+},</br>   
+} 
+</code>
+                    </article>
+
+                    <article class="template">
+                        <h2>HTML Template</h2>
+<code class='prettyprint lang-html'>
+&lt;div comb='gusty'&gt;<br />
+&nbsp;&lt;div comb='name'&gt;&lt;/div&gt;<br />
+&nbsp;&lt;div comb='price'&gt;&lt;/div&gt;<br />
+&lt;/div&gt;  
+</code>                        
+                    </article>
+
+                    <article class="code">
+                        <h2>Result</h2>
+<code class='prettyprint lang-html'>
+&lt;div&gt;<br />
+&nbsp;Name:&lt;div comb="name"&gt;Being Gutsy&lt;/div&gt;<br />
+&nbsp;Phone:&lt;div comb="phone"&gt;9.95&lt;div&gt;<br />
+&lt;/div&gt;    
+</code>                         
+                    </article>    
+                </div>
+                <!-- eo section two sample -->
+                
+            </div>
+            <!-- EO templating -->
+
+            <!-- Rendering -->
+            <div class="row divider">
+                <h2>Renderers</h2>
+                <p>Renders are methods to tell Combover to render that particular tag. Renders precede the property name.</p>
+
+                <p>! value must not === false so no:</p>
+                <ul>
+                    <li>empty strings</li>
+                    <li>0</li>
+                    <li>false</li>
+                    <li>null or undefined</li>
+                </ul>
+                <p>? Value is set. Meaning it is not undefined</p>
+
+                <!-- section three sample code -->
+                <div class="sample-code clearfix">
+                    <article class="json">
+                    <h2>JSON object</h2>
+<code class='prettyprint'>
+{</br>
+gusty: {</br>
+&nbsp;'brand':'RUSK',</br>
+&nbsp;'name':'Being Gutsy',</br>
+&nbsp;'type':'Thickening Cream',</br>
+&nbsp;'price':9.95</br>,
+&nbsp;'in_stock': false</br />
+},</br>
+wild: {</br>
+&nbsp;'brand':'RUSK',</br>
+&nbsp;'name':'Being Wild',</br>
+&nbsp;'type':'Paste',</br>
+&nbsp;'price':8.95</br>
+&nbsp;'in_stock': true</br />
+},</br>   
+} 
+</code>
+                    </article>
+
+                    <article class="template">
+                        <h2>HTML Template</h2>
+<code class='prettyprint lang-html'>
+&lt;div comb="gusty"&gt;<br />
+&nbsp;&lt;div comb="name"&gt;&lt;/div&gt;<br />
+&nbsp;&lt;div comb="price"&gt;&lt;/div&gt;<br />
+&nbsp;&lt;div comb="!in_stock"&gt;OUT OF STOCK&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;div comb="wild"&gt;<br />
+&nbsp;&lt;div comb="name"&gt;&lt;/div&gt;<br />
+&nbsp;&lt;div comb="price"&gt;&lt;/div&gt;<br />
+&nbsp;&lt;div comb="!in_stock"&gt;OUT OF STOCK&lt;/div&gt;<br />
+&lt;/div&gt;
+</code>                        
+                    </article>
+
+                    <article class="code">
+                        <h2>Result</h2>
+<code class='prettyprint lang-html'>
+&lt;div&gt;<br />
+&nbsp;&lt;div&gt;Being Gutsy&lt;/div&gt;<br />
+&nbsp;&lt;div&gt;9.95&lt;div&gt;<br />
+&nbsp;&lt;div&gt;OUT OF STOCK&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;div&gt;<br />
+&nbsp;&lt;div&gt;Being Wild&lt;/div&gt;<br />
+&nbsp;&lt;div&gt;9.95&lt;div&gt;<br />
+&lt;/div&gt;<br />   
+</code>                         
+                    </article>    
+                </div>
+                <!-- eo section three sample -->
+
+                <strong>Customer Renderers</strong>
+                <p>You can create your own renders using the addRenderer method which takes a symbol and a callback</p>
+
+<code class='prettyprint lang-js'>
+Combover.addRenderer('~', function(val) { return val == 'Bald' });    
+</code>
+
+                <p><span class="label label-info">Symbol</span> - Must be a special character</p>
+                <p><span class="label label-info">Callback</span> - Takes the current value and returns TRUE if you want to render that element</p>
+
+            </div>
+            <!-- EO Rendering -->
+
+            <div class="row divider">
+                <h2>Helpers</h2>
+                <p>Helpers are methods that format the output. They are placed after the object property</p>
+
+                <ul id='helpers'>
+                    <li><strong>&and;</strong> &mdash; Uppercase</li>
+                    <li><strong>$</strong> &mdash; Format to a currency with 2 decimal places "9.9512" -> $9.95</li>
+                    <li><strong>%</strong> &mdash; Formats to percentage ".102" -> 10%</li>
+                    <li><strong>%</strong> &mdash; Formats to a number with 2 decimals places</li>
+                    <li><strong>,</strong> &mdash; Formats to a number with 0 decimal places</li>
+                </ul>
+
+                <!-- section 4 code sample -->
+                <div class="sample-code clearfix">
+                    <article class="json">
+                    <h2>JSON object</h2>
+<code class='prettyprint'>
+{<br />
+&nbsp;'brand':'RUSK',<br />
+&nbsp;'name':'Being Gutsy'<br />
+}
+</code>
+                    </article>
+
+                    <article class="template">
+                        <h2>HTML Template</h2>
+<code class='prettyprint lang-html'>
+&lt;div comb="name^"&gt;&lt;/div&gt;<br />
+&lt;div comb="price$"&gt;&lt;/div&gt;
+</code>                        
+                    </article>
+
+                    <article class="code">
+                        <h2>Result</h2>
+<code class='prettyprint lang-html'>
+&lt;div>BEING GUTSY&lt;/div&gt;<br />
+&lt;div>$9.95&lt;div&gt;
+</code>                         
+                    </article>    
+                </div>
+                <!-- eo section 4 code sample -->
+
+                <strong>Custom Helpers</strong>
+                <p>Use the addHelper method which takes a symbol and a callback</p>
+
+<code class='prettyprint lang-js'>
+Combover.addRenderer('@', function(val) {<br />  
+&nbsp;return val.replace('@', 'at').replace('.', 'dot');<br />
+});
+</code>
+
+<p><span class="label label-info">Symbol</span> - Must be a special character</p>
+<p><span class="label label-info">Callback</span> - Takes the current value and returns the output</p>
+
+                <!-- code sample -->
+                <div class="sample-code clearfix">
+                    <article class="json">
+                    <h2>JSON object</h2>
+<code class='prettyprint'>
+{<br/>
+&nbsp;'name':'Combover',<br />
+&nbsp;'email':'nohair@comboverjs.com'<br />
+}
+</code>
+                    </article>
+
+                    <article class="template">
+                        <h2>HTML Template</h2>
+<code class='prettyprint lang-html'>
+&nbsp;&lt;div comb="name"&gt;&lt;/div&gt;<br />
+&nbsp;&lt;div comb="email"&gt;&lt;/div&gt;
+</code>                        
+                    </article>
+
+                    <article class="code">
+                        <h2>Result</h2>
+<code class='prettyprint lang-html'>
+&nbsp;&lt;div&gt;Being Gutsy&lt;/div&gt;<br />
+&nbsp;&lt;div&gt;nohair@comboverjs.com”&lt;div&gt;<br />
+</code>                         
+                    </article>    
+                </div>
+                <!-- eo code sample -->
+
+            </div>
+            <div class="row divider">
+                <h2>Treatment</h2>
+                <p>Content to come...</p>
+            </div>
+
 
             <footer>
                 <!-- Footer -->
@@ -85,6 +409,7 @@
         <script src="js/main.js"></script>
         <script src="js/application.js"></script>
         <script src="js/combover.js"></script>
+        <script type="text/javascript" src="js/prettify.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

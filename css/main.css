@@ -210,6 +210,10 @@ textarea {
     *zoom: 1;
 }
 
+.float-left {
+    float: left;
+}
+
 /* ==========================================================================
    EXAMPLE Media Queries for Responsive Design.
    Theses examples override the primary ('mobile first') styles.

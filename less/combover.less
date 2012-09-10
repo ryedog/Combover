@@ -12,6 +12,13 @@ h1, h2, h3 {
 	background-color: #EBE781;
 }
 
+#main code.prettyprint {
+	margin-bottom: 20px;
+	margin-top: 10px;
+	display: inline-block;
+	width: 97%;
+}
+
 header {
 	background-image: url('/img/combover-header.jpg');
 	width: 1024px;
@@ -54,16 +61,35 @@ header {
 
 .divider {
 	border-bottom: solid 1px #E0E0E0;
-	padding-bottom: 30px;
+	padding-bottom: 20px;
+	margin-bottom: 10px;
 
 	h2 {
-		font-size: 1.8em;
+		font-size: 1.6em;
+	}
+
+	h3 {
+		font-size: 1em;
+	}
+
+	ul#helpers {
+		margin: 0;
+		li {
+			list-style: none;
+		}
 	}
 }
 
 .sample-code {
 
 	margin-top: 20px;
+	position: relative;
+
+	#button-bar {
+		position: absolute;
+		top: 213px;
+		right: 32px;
+	}
 
 	article {
 		width: 32%;
@@ -77,7 +103,7 @@ header {
 
 	.template, .json{
 		float: left;
-		margin-left: @code-margin;
+		margin-right: 15px;
 	}
 
 	.code {
@@ -90,6 +116,7 @@ header {
 			padding: 10px;
 			min-height: 170px;
 		}
+
 	}
 
 	h2 {
