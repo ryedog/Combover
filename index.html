@@ -47,9 +47,9 @@
 
                     <p>Markup, it's like hair you don't need&hellip; just Combover</p>
                     <p>Combover removes the need for extra markup by binding objects directly to HTML tags. It’s simple, lightweight and intuitive&hellip; everything a Javascript templating engine should be.</p>
-                    <p>We find that our HTML is always in the structure of the data we want to template. So why have additional markup surrounding our HTML? They break HTML renders, WYSIYWGS and look ugly.</p>
+                    <p>We find that our HTML is usually in the structure of the data we want to template. So why have additional markup surrounding our HTML? It breaks HTML renders, WYSIYWGS and look's ugly.</p>
 
-                    <a href="#" class="btn btn-info btn-large">Download Beta-1.0.6</a>
+                    <a href="#" class="btn btn-info btn-large">Download Beta-1.0</a>
                 </article>
 
             </div>    
@@ -125,7 +125,7 @@
                 <!-- eo section one sample -->
 
                 <strong>Templates</strong>
-                <p>Combover templates work just like other engines. You can send in HTML source or supply an ID</p>
+                <p>Combover templates work just like other engines. You can send in HTML source or supply an element ID</p>
 
 <code class='prettyprint lang-js'>                    
 &nbsp;var gutsy = Combover.compile('#rusk-gutsy');
@@ -245,7 +245,7 @@ gusty: {</br>
 &nbsp;'brand':'RUSK',</br>
 &nbsp;'name':'Being Gutsy',</br>
 &nbsp;'type':'Thickening Cream',</br>
-&nbsp;'price':9.95</br>,
+&nbsp;'price':9.95,</br>
 &nbsp;'in_stock': false</br />
 },</br>
 wild: {</br>
@@ -313,7 +313,7 @@ Combover.addRenderer('~', function(val) { return val == 'Bald' });
                     <li><strong>&and;</strong> &mdash; Uppercase</li>
                     <li><strong>$</strong> &mdash; Format to a currency with 2 decimal places "9.9512" -> $9.95</li>
                     <li><strong>%</strong> &mdash; Formats to percentage ".102" -> 10%</li>
-                    <li><strong>%</strong> &mdash; Formats to a number with 2 decimals places</li>
+                    <li><strong>#</strong> &mdash; Formats to a number with 2 decimals places</li>
                     <li><strong>,</strong> &mdash; Formats to a number with 0 decimal places</li>
                 </ul>
 
