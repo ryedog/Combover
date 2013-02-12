@@ -240,13 +240,17 @@
 		var text = comb.attribute
 				? html.attr( comb.attribute )
 				: html.html();
-		if ( text == undefined )
+				debug("Comb A:" + comb.attribute);
+
+		// Replace empty text and text with no expression with a simple expression
+		// ex: comb="id@value" value="impression" we will replace 'impression' with id
+		if ( text == undefined || text.indexOf('{.}') == -1 )
 			text = '{.}';
 		
 		
 		var source = html.clone();
 		var val = text.replace('{.}', data);
-
+		debug("Value: " + val);
 		
 		if ( comb.attribute )
 			source.attr(comb.attribute, val)
@@ -314,7 +318,7 @@
 		
 		if ( source.attr('render') ) {
 			var renderer = source.attr('render');
-			console.log('*** Renderer: ' + renderer);
+			debug('*** Renderer: ' + renderer);
 			
 			// Allow > in renderer to apply to all children
 			if ( renderer[0] == '>' ) {
@@ -523,8 +527,8 @@
 			debug('*** Not Rendering', this.combs[0]);
 			return '';
 		}
-				
-		
+
+
 		this.combs.map(function(comb) {
 			debug('*** _Render: ' + comb.member + ( comb.attribute ? '@' + comb.attribute : ''));
 			
@@ -554,6 +558,12 @@
 			html = html.replace(t.holder, t._render(data) );
 		});
 		
+		// @Hack
+		// We've replaced empty tags with {.}, what if they are only targeting attributes? {.} doesn't get replaced
+		// Because the expression can be replaced with an older comb
+		// We could choose not to replace empty tags w/ the expression?
+		html = html.replace('>{.}<', '><');
+
 		return html;
 	}
 
