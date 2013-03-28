@@ -63,13 +63,12 @@
 
 
 	/**
+	 * Debug method. Send as many args you want into debug to print them out
 	 *
-	 *
-	 * @param txt String
 	 */
-	function debug(m1, m2, m3) {
+	function debug() {
 		if ( console && exports.debug )
-			console.log(m1, m2, m3);
+			console.log.apply(console, arguments);
 	}
 
 
@@ -153,7 +152,7 @@
 	function parseCombs(txt) {
 		debug('*** Being parseCombs: ' + txt );
 		var matches, combs = [];
-		if (txt )
+		if ( txt )
 			txt.split(/\s+/).map(function(item) {
 		
 				var comb = item.split('@');
@@ -164,7 +163,9 @@
 						renders:   	[],
 						helpers: 	[]
 					}
-					
+				if (! comb.attribute )
+					combs['TargetingInnerHtml'] = true;
+
 				// Shorthands - Remove & Parse them
 				//-----------------------------------------
 				var modifiers = comb.member.match(/^\W*/);
@@ -242,6 +243,8 @@
 				: html.html();
 				debug("Comb A:" + comb.attribute);
 
+
+	
 		// Replace empty text and text with no expression with a simple expression
 		// ex: comb="id@value" value="impression" we will replace 'impression' with id
 		if ( text == undefined || text.indexOf('{.}') == -1 )
@@ -333,15 +336,15 @@
 		this.source = source;
 
 		
-				
+		
 		// Handle Expression Markup
 		//--------------------------------------
 		if (! this.isNested ) {
 			
-			//this.source.html().
-			
-			if ( this.source.html().indexOf('{.}') == -1 )
-				this.source.html('{.}');
+			// Only blow out inner HTML when we're targeting it
+			if ( this.combs['TargetingInnerHtml'] )
+				if ( this.source.html().indexOf('{.}') == -1 )
+					this.source.html('{.}');
 		} 
 
 
@@ -363,7 +366,6 @@
 				}
 				
 				debug('*** Parsing Comb: ' + oHtml(o) );
-				debug('*** Parsing Comb2: ' + oHtml(o) );
 				debug(comb);
 				var child = new template( o.clone(), inherit );
 				//self.map[comb] = new Combover.template( o.clone() );
