@@ -86,6 +86,15 @@
 
 
 	/**
+	 * 
+	 */
+	function hasAttribute(source, name) {
+		var attr = source.attr(name);
+		
+		return typeof attr !== 'undefined' && attr !== false;
+	}
+
+	/**
 	 * Determines if a variable is primitive
 	 *
 	 * @param data Mixed
@@ -241,7 +250,6 @@
 		var text = comb.attribute
 				? html.attr( comb.attribute )
 				: html.html();
-				debug("Comb A:" + comb.attribute);
 
 
 	
@@ -253,13 +261,14 @@
 		
 		var source = html.clone();
 		var val = text.replace('{.}', data);
-		debug("Value: " + val);
+
 		
 		if ( comb.attribute )
 			source.attr(comb.attribute, val)
 		else
 			source.html(val);
 		
+
 		return oHtml( source );	
 	}
 
@@ -303,12 +312,15 @@
 
 		// Members
 		//-------------------------------------
-		this.attr       = null;
+		this.attr      	= null;
 		this.holder 	= null;
-		this.children   = [];
-		this.isNested   = source.children().length > 0;
+		this.children  	= [];
+		this.isNested  	= source.children().length > 0;
 		this.combs 		= parseCombs( source.attr('comb') );
-		
+		this.exclude	= hasAttribute(source, 'comb-exclude');
+		this.container 	= hasAttribute(source, 'comb-container');
+
+
 		// Add Renderer
 		//-------------------------------------
 		source.removeAttr('comb');
@@ -382,7 +394,7 @@
 		debug('*** Property: ' + this.property + ' ' + oHtml(this.source) );
 	};
 	
-	
+
 	/**
 	 *
 	 */
@@ -478,7 +490,7 @@
 		
 		var html = ''
 		var self = this;
-		
+		var item_html;
 		data.map(function(item){
 			
 			// Apply Render
@@ -488,14 +500,22 @@
 			}			
 			
 			// Apply each comb
-			var item_html = source;
+			item_html = source;
 			self.combs.map(function(comb) {
 				item_html = $( self.renderComb(comb, item, $( item_html ), true) );
 			});
-			html += oHtml( item_html );
+
+			// @todo should/can there be  higher level property to mark behavior?
+			html += self.exclude || self.container
+				? item_html.html()
+				: oHtml( item_html );
 			
 		});
-		
+
+
+		if ( self.container )
+			html = oHtml( item_html.html( html ) );
+
 		return html;		
 	}
 
