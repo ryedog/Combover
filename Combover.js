@@ -324,6 +324,8 @@
 		// Add Renderer
 		//-------------------------------------
 		source.removeAttr('comb');
+		source.removeAttr('comb-exclude');
+		source.removeAttr('comb-container');
 
 		// Add inheritance
 		if ( inherit ) {
