@@ -514,9 +514,18 @@
 			
 		});
 
+		// Handle empty arrays
+		// ----------------------------
+		if (! item_html )
+			return self.exclude
+				? html
+				: oHtml( source.html('') );
+
 
 		if ( self.container )
-			html = oHtml( item_html.html( html ) );
+			html = ! item_html
+				? oHtml( source.html('') )
+				: oHtml( item_html.html( html ) );
 
 		return html;		
 	}
