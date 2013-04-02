@@ -233,18 +233,19 @@
 	 *
 	 */	
 	function toHtml(data, comb, html) {
-		
+		var val = data;
+
 		// Apply Renders & Format Data
 		//---------------------------------------
-		if ( data == undefined )
-			data = '';
+		if ( val == undefined )
+			val = '';
 			
 		comb.helpers.map(function(fn) {
-			data = fn.call(this, data);
+			val = fn.call(this, val);
 		});
 		
 		if ( comb.escape )
-			data = htmlEncode(data);
+			val = htmlEncode(val);
 		
 		// Get Text to replace
 		//------------------------------
@@ -261,11 +262,15 @@
 
 
 		var source = html.clone();
-		var val = text.replace('{.}', data);
+		var val = text.replace('{.}', val);
 
-		
+
 		if ( comb.attribute )
-			source.attr(comb.attribute, val)
+			if ( comb.attribute == 'checked' || comb.attribute == 'disabled' ) {
+				if ( data )
+					source.attr(comb.attribute, val);
+			} else
+				source.attr(comb.attribute, val);
 		else
 			source.html(val);
 		
@@ -569,7 +574,6 @@
 
 		this.combs.map(function(comb) {
 			debug('*** _Render: ' + comb.member + ( comb.attribute ? '@' + comb.attribute : ''));
-			
 			html = comb.attribute
 				? toHtml( data[comb.member], comb, $(html) )
 				: this.renderComb(comb, data, $(html));
