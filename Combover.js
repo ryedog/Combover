@@ -192,8 +192,9 @@
 					
 				combs.push(comb);
 			});
+
+
 		debug('---- End parseCombs: ', combs);
-		
 		return combs;
 	}
 
@@ -257,8 +258,8 @@
 		// ex: comb="id@value" value="impression" we will replace 'impression' with id
 		if ( text == undefined || text.indexOf('{.}') == -1 )
 			text = '{.}';
-		
-		
+
+
 		var source = html.clone();
 		var val = text.replace('{.}', data);
 
@@ -275,30 +276,32 @@
 
 	/**
 	 *
+	 * @param source string Either JQuery ID Selector or direct HTML
+	 *
+	 * @note If sending direct HTML it CANNOT start with '#'
 	 */	
 	exports.compile = function(source) {
 			// Initialize the source
-		if ( typeof source == "string" )
-				source = $(source);
+		if ( typeof source == "string" ) {
+				source = source.indexOf('#') == 0
+					? $(source)
+					: $('<div>' + source + '</div>');
+		}
 		
+		// Set up the source
+		// We use the outer template tag as a excluded behavior tag
 		source = source.clone();
+		source.attr('comb', 'root');
+		source.attr('comb-exclude', '');
 		debug('*** Compiling: ' + source.html());
 		
 		
-		var template2 = new template(source);
-		
-		debug(template2.map);
-			
+		var template3 = new template(source);
 		var container = {
-			object: template2,
-			renderer: template2.render.bind(template2),  
+			object: template3,
+			renderer: template3.render.bind(template3),  
 		};
 		exports.templates.push( container );
-		
-		template2.combs = [{
-			member: null,
-			renders: []
-		}]
 		debug('*** End Compile\n\n\n');
 
 		return container.renderer;	
@@ -321,6 +324,8 @@
 		this.container 	= hasAttribute(source, 'comb-container');
 
 
+		
+
 		// Add Renderer
 		//-------------------------------------
 		source.removeAttr('comb');
@@ -332,7 +337,7 @@
 			this.combs[0].renders.push(renders[inherit]);
 			inherit = null;
 		}
-		
+
 		if ( source.attr('render') ) {
 			var renderer = source.attr('render');
 			debug('*** Renderer: ' + renderer);
@@ -585,7 +590,17 @@
 		
 		var html = this.source.html();
 		debug('*** Render ' + html);
-	
+		
+		debug('**** ', this);
+
+
+		// @Hack
+		// If the data is an array, what do we do? How do we start an array?
+		if ( data instanceof Array ) {
+ 			data = {root: data};
+ 			html = this._render(data);
+		}
+
 		this.children.map(function(t) {
 			debug('    Child: ', t.combs);
 			html = html.replace(t.holder, t._render(data) );
