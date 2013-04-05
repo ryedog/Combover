@@ -327,7 +327,7 @@
 		this.combs 		= parseCombs( source.attr('comb') );
 		this.exclude	= hasAttribute(source, 'comb-exclude');
 		this.container 	= hasAttribute(source, 'comb-container');
-
+		this.renderOnly = hasAttribute(source, 'comb-renderOnly');
 
 		
 
@@ -336,6 +336,8 @@
 		source.removeAttr('comb');
 		source.removeAttr('comb-exclude');
 		source.removeAttr('comb-container');
+		source.removeAttr('comb-renderOnly');
+
 
 		// Add inheritance
 		if ( inherit ) {
@@ -366,7 +368,7 @@
 		if (! this.isNested ) {
 			
 			// Only blow out inner HTML when we're targeting it
-			if ( this.combs['TargetingInnerHtml'] )
+			if ( this.combs['TargetingInnerHtml'] && this.renderOnly == false )
 				if ( this.source.html().indexOf('{.}') == -1 )
 					this.source.html('{.}');
 		} 
@@ -554,6 +556,23 @@
 
 		var html = this.source;
 		
+	
+		// Handle Render Only
+		//   These are tags that don't work with properties
+		//   but use peroperties to determine if the tag should render
+		// --------------------------------------------------------------
+		if ( this.renderOnly ) {
+
+			// Apply Render
+			if ( hideComb(data[ this.combs[0].member ], this.combs[0], true) ) {
+				debug('*** Not Rendering', this.combs[0]);
+				return '';
+			}
+
+			return oHtml( html );
+		}
+
+
 		// Handle Arrays
 		//
 		// @temp currently not sure how to handle Arrays filled w/ primities
@@ -629,8 +648,13 @@
 	exports.addHelper('#', function(val) 	{	return formatNumber(val, 2)						});
 	exports.addHelper(',', function(val) 	{	return formatNumber(val, 0)						});
 	
-	exports.addRenderer('!', function(val) 	{	return val != '' && val != null && val != undefined && val != false;	});
-	exports.addRenderer('?', function(val) 	{	return val !== undefined												});
+	exports.addRenderer('?', function(val) 	{	return val !== undefined						});
+	exports.addRenderer('!', function(val) 	{
+		return val instanceof Array 
+			? val.length > 0
+			: val != '' && val != null && val != undefined && val != false;	
+	});
+	
 	
 
 })(Combover);
